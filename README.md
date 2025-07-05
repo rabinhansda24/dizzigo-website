@@ -116,9 +116,8 @@ python3 -m http.server 8000
 
 ## 📦 Docker Architecture
 
-### **Multi-Stage Build**
-1. **Builder Stage**: Node.js environment for potential build processes
-2. **Production Stage**: Lightweight nginx:alpine with optimized configuration
+### **Simplified Single-Stage Build**
+1. **Production Stage**: nginx:alpine with optimized configuration and website files
 
 ### **Key Features**
 - ✅ **Security**: Non-root user execution
@@ -266,6 +265,19 @@ python3 -m http.server 8000
 ## 🔧 Troubleshooting
 
 ### **Common Issues**
+
+#### **Docker Build Fails - Permission/User Issues**
+```bash
+# Error: addgroup/adduser permission issues
+# Solution: Use simplified Dockerfile
+
+# Test with simple build:
+chmod +x test-build.sh
+./test-build.sh --simple
+
+# Or test regular build:
+./test-build.sh
+```
 
 #### **Docker Build Fails - Assets Directory Error**
 ```bash

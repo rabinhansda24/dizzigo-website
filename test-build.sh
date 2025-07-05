@@ -12,6 +12,9 @@ RED='\033[0;31m'
 NC='\033[0m'
 
 echo -e "${BLUE}🐳 Testing DizziGo Website Docker Build${NC}"
+if [ "$1" = "--simple" ]; then
+    echo -e "${YELLOW}🛠️  Using simplified Dockerfile (Dockerfile.simple)${NC}"
+fi
 echo ""
 
 # Check if Docker is available
@@ -53,8 +56,15 @@ echo ""
 echo -e "${BLUE}🔨 Starting Docker build...${NC}"
 echo ""
 
+# Choose dockerfile
+DOCKERFILE="Dockerfile"
+if [ "$1" = "--simple" ]; then
+    DOCKERFILE="Dockerfile.simple"
+    echo -e "${YELLOW}Using simple Dockerfile for testing${NC}"
+fi
+
 # Build the Docker image
-if docker build -t dizzigo-website:test .; then
+if docker build -f "$DOCKERFILE" -t dizzigo-website:test .; then
     echo ""
     echo -e "${GREEN}✅ Docker build successful!${NC}"
     echo ""
@@ -74,7 +84,7 @@ if docker build -t dizzigo-website:test .; then
         sleep 3
         
         # Test health endpoint
-        if curl -f http://localhost:8888/health >/dev/null 2>&1; then
+        if wget --no-verbose --tries=1 --spider http://localhost:8888/health >/dev/null 2>&1 || curl -f http://localhost:8888/health >/dev/null 2>&1; then
             echo -e "  ✅ Container starts successfully"
             echo -e "  ✅ Health check passes"
             echo -e "  🌐 Test URL: http://localhost:8888"
@@ -95,6 +105,7 @@ if docker build -t dizzigo-website:test .; then
     echo "  1. Run full environment: ${YELLOW}./docker-deploy.sh dev${NC}"
     echo "  2. Or start container: ${YELLOW}docker run -d -p 3000:8080 --name dizzigo-website dizzigo-website:test${NC}"
     echo "  3. Clean up test image: ${YELLOW}docker rmi dizzigo-website:test${NC}"
+    echo "  4. Test simple build: ${YELLOW}./test-build.sh --simple${NC}"
     
 else
     echo ""
