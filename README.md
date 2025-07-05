@@ -49,7 +49,8 @@ dizzigo-website/
 ├── 🔧 Scripts
 │   ├── docker-deploy.sh       # Linux/macOS deployment script
 │   ├── docker-deploy.bat      # Windows deployment script
-│   └── quickstart.sh          # Interactive quick start
+│   ├── quickstart.sh          # Interactive quick start
+│   └── test-build.sh          # Docker build testing script
 │
 └── 📋 Meta Files
     ├── .gitignore             # Git exclusions
@@ -158,6 +159,7 @@ NGINX_PORT=8080
 ./docker-deploy.sh health   # Check health
 ./docker-deploy.sh clean    # Clean up resources
 ./docker-deploy.sh shell    # Container shell access
+./test-build.sh             # Test Docker build only
 ```
 
 ### **Windows (docker-deploy.bat)**
@@ -264,6 +266,21 @@ python3 -m http.server 8000
 ## 🔧 Troubleshooting
 
 ### **Common Issues**
+
+#### **Docker Build Fails - Assets Directory Error**
+```bash
+# Error: "/app/assets": not found
+# Solution: Ensure .gitkeep files exist in asset subdirectories
+
+# Quick fix:
+touch assets/icons/.gitkeep
+touch assets/images/.gitkeep
+touch assets/screenshots/.gitkeep
+
+# Test build:
+chmod +x test-build.sh
+./test-build.sh
+```
 
 #### **Port Already in Use**
 ```bash

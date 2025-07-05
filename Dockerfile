@@ -27,6 +27,8 @@ COPY --from=builder /app/*.json /usr/share/nginx/html/
 COPY --from=builder /app/*.xml /usr/share/nginx/html/
 COPY --from=builder /app/*.txt /usr/share/nginx/html/
 COPY --from=builder /app/*.svg /usr/share/nginx/html/
+
+# Copy assets directory safely (now has .gitkeep files)
 COPY --from=builder /app/assets /usr/share/nginx/html/assets
 
 # Copy custom nginx configuration
