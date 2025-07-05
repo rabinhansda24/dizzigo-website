@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DizziGo - Your AI-Powered Terminal Companion</title>
+    <meta name="description" content="DizziGo is a CLI-based, chat-powered AI assistant that acts like a senior software engineer with complete context of your local project.">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Favicon and App Icons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/icon-16x16.png">
+    
+    <!-- Theme Color for Mobile Browsers -->
+    <meta name="theme-color" content="#00ff88">
+    <meta name="msapplication-TileColor" content="#0a0e1a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="DizziGo">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="DizziGo - Your AI-Powered Terminal Companion">
+    <meta property="og:description" content="A CLI-based, chat-powered AI assistant that acts like a senior software engineer with complete context of your local project.">
+    <meta property="og:image" content="https://dizzigo.dev/assets/images/og-image.png">
+    <meta property="og:url" content="https://dizzigo.dev">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="DizziGo">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="DizziGo - Your AI-Powered Terminal Companion">
+    <meta name="twitter:description" content="A CLI-based, chat-powered AI assistant that acts like a senior software engineer with complete context of your local project.">
+    <meta name="twitter:image" content="https://dizzigo.dev/assets/images/twitter-card.png">
+    <meta name="twitter:site" content="@dizzigo">
+    <meta name="twitter:creator" content="@dizzigo">
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <meta name="author" content="DizziGo Team">
+    <link rel="canonical" href="https://dizzigo.dev">
+    
+    <!-- Three.js for 3D elements -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- GSAP for smooth animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Background 3D Canvas -->
+    <canvas id="bg-canvas"></canvas>
+    
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="terminal-prompt">$</span>
+                <span class="logo-text">DizziGo</span>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#tech-stack" class="nav-link">Tech Stack</a>
+                <a href="#get-started" class="nav-link">Get Started</a>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <div class="terminal-buttons">
+                            <span class="btn-close"></span>
+                            <span class="btn-minimize"></span>
+                            <span class="btn-maximize"></span>
+                        </div>
+                        <div class="terminal-title">DizziGo Terminal</div>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="terminal-line">
+                            <span class="prompt">$</span>
+                            <span class="command">dizzigo</span>
+                        </div>
+                        <div class="terminal-output">
+                            <div class="typing-animation">
+                                🤖 <strong>Dizzi:</strong> Hey! I'm Dizzi, your AI-powered terminal companion. I act like a senior software engineer with complete context of your project. Ready to help you code, debug, and optimize! 🚀
+                            </div>
+                        </div>
+                        <div class="terminal-cursor">
+                            <span class="prompt">$</span>
+                            <span class="cursor">|</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <h1 class="hero-title">
+                    Your AI-Powered<br>
+                    <span class="gradient-text">Terminal Companion</span>
+                </h1>
+                
+                <p class="hero-description">
+                    DizziGo is a CLI-based, chat-powered AI assistant that understands your codebase,
+                    executes commands safely, and helps you debug like a senior software engineer.
+                </p>
+                
+                <div class="hero-buttons">
+                    <a href="#get-started" class="btn btn-primary" id="main-cta">
+                        <span class="btn-text">Get Started</span>
+                        <span class="btn-icon">→</span>
+                    </a>
+                    <a href="#features" class="btn btn-secondary">
+                        <span class="btn-text">Learn More</span>
+                        <span class="btn-icon">↓</span>
+                    </a>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">100+</span>
+                        <span class="stat-label">Commands</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">∞</span>
+                        <span class="stat-label">Queries</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Available</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="floating-terminal" id="floating-terminal">
+                    <div class="code-snippet">
+                        <pre><code>package main
+
+import (
+    "fmt"
+    "github.com/charmbracelet/bubbletea"
+)
+
+func main() {
+    fmt.Println("🤖 DizziGo Starting...")
+    
+    // Initialize smart LLM system
+    manager := smart.NewProviderManager()
+    
+    // Start chat interface
+    program := tea.NewProgram(
+        NewChatModel(manager),
+    )
+    
+    program.Run()
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="scroll-indicator">
+            <div class="scroll-wheel"></div>
+            <span>Scroll to explore</span>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Core Features</h2>
+                <p class="section-description">
+                    Everything you need for intelligent terminal assistance
+                </p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card" data-feature="chat">
+                    <div class="feature-icon">
+                        <span class="icon">🧠</span>
+                    </div>
+                    <h3 class="feature-title">AI Chat Interface</h3>
+                    <p class="feature-description">
+                        Natural language interaction powered by GPT-4, Claude, or local LLMs.
+                        Ask questions, get explanations, and receive coding help.
+                    </p>
+                    <div class="feature-demo">
+                        <div class="demo-terminal">
+                            <div class="demo-line">
+                                <span class="demo-prompt">You:</span>
+                                <span class="demo-text">How do I optimize this Go function?</span>
+                            </div>
+                            <div class="demo-line">
+                                <span class="demo-prompt">🤖 Dizzi:</span>
+                                <span class="demo-text">I'll analyze your function and suggest optimizations...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="feature-card" data-feature="filesystem">
+                    <div class="feature-icon">
+                        <span class="icon">📂</span>
+                    </div>
+                    <h3 class="feature-title">Filesystem Context</h3>
+                    <p class="feature-description">
+                        Deep understanding of your project structure. Reads, edits, and creates files
+                        with full awareness of your codebase.
+                    </p>
+                    <div class="feature-demo">
+                        <div class="file-tree">
+                            <div class="file-item">📁 src/</div>
+                            <div class="file-item">📁 tests/</div>
+                            <div class="file-item">📄 main.go</div>
+                            <div class="file-item">📄 config.yaml</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="feature-card" data-feature="commands">
+                    <div class="feature-icon">
+                        <span class="icon">🖥️</span>
+                    </div>
+                    <h3 class="feature-title">Safe Command Execution</h3>
+                    <p class="feature-description">
+                        Execute whitelisted commands safely. Run builds, tests, and deployments
+                        with intelligent output interpretation.
+                    </p>
+                    <div class="feature-demo">
+                        <div class="command-list">
+                            <div class="command-item">✅ go build</div>
+                            <div class="command-item">✅ docker build</div>
+                            <div class="command-item">✅ pytest</div>
+                            <div class="command-item">❌ rm -rf</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="feature-card" data-feature="debugging">
+                    <div class="feature-icon">
+                        <span class="icon">🪛</span>
+                    </div>
+                    <h3 class="feature-title">Intelligent Debugging</h3>
+                    <p class="feature-description">
+                        Auto-detects errors, explains problems, and suggests fixes.
+                        Learn from error patterns over time.
+                    </p>
+                    <div class="feature-demo">
+                        <div class="error-demo">
+                            <div class="error-line">❌ undefined: foo</div>
+                            <div class="fix-line">💡 Fix: import "github.com/pkg/foo"</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="feature-card" data-feature="security">
+                    <div class="feature-icon">
+                        <span class="icon">🔐</span>
+                    </div>
+                    <h3 class="feature-title">Security & Permissions</h3>
+                    <p class="feature-description">
+                        Explicit allowlists for directories and commands. Optional sandboxed
+                        execution for maximum security.
+                    </p>
+                    <div class="feature-demo">
+                        <div class="security-badges">
+                            <span class="badge">Directory Whitelist</span>
+                            <span class="badge">Command Sandbox</span>
+                            <span class="badge">Audit Logs</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="feature-card" data-feature="smart-llm">
+                    <div class="feature-icon">
+                        <span class="icon">⚡</span>
+                    </div>
+                    <h3 class="feature-title">Smart LLM Switching</h3>
+                    <p class="feature-description">
+                        Automatically switches between cloud and local models based on network,
+                        query complexity, and user preferences.
+                    </p>
+                    <div class="feature-demo">
+                        <div class="llm-switcher">
+                            <div class="llm-option active">🌐 Claude Sonnet</div>
+                            <div class="llm-option">🔌 CodeLlama-7B</div>
+                            <div class="llm-option">🚀 GPT-4</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">How It Works</h2>
+                <p class="section-description">
+                    Simple installation, powerful capabilities
+                </p>
+            </div>
+            
+            <div class="steps-container">
+                <div class="step" data-step="1">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Install DizziGo</h3>
+                        <p class="step-description">
+                            Quick installation with automatic system detection and optimal model selection
+                        </p>
+                        <div class="step-code">
+                            <pre><code>$ curl -fsSL https://get.dizzigo.dev | sh
+$ dizzigo --version</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step" data-step="2">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Configure Your Project</h3>
+                        <p class="step-description">
+                            Set up allowed directories and commands for your project
+                        </p>
+                        <div class="step-code">
+                            <pre><code>$ dizzigo init
+$ dizzigo config set allowed_dirs ./src ./tests
+$ dizzigo config set api_key $OPENAI_API_KEY</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step" data-step="3">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Start Coding with Dizzi</h3>
+                        <p class="step-description">
+                            Launch the AI assistant and start getting intelligent help
+                        </p>
+                        <div class="step-code">
+                            <pre><code>$ dizzigo
+🤖 Dizzi: Ready to help! What can I do for you?
+You: Debug this Go function
+🤖 Dizzi: I found the issue in line 42...</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section id="tech-stack" class="tech-stack">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Built with Modern Technology</h2>
+                <p class="section-description">
+                    Robust, scalable, and extensible architecture
+                </p>
+            </div>
+            
+            <div class="tech-grid">
+                <div class="tech-category">
+                    <h3 class="category-title">Core Language</h3>
+                    <div class="tech-items">
+                        <div class="tech-item">
+                            <span class="tech-icon">🔷</span>
+                            <span class="tech-name">Go</span>
+                            <span class="tech-description">Fast, reliable, concurrent</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tech-category">
+                    <h3 class="category-title">User Interface</h3>
+                    <div class="tech-items">
+                        <div class="tech-item">
+                            <span class="tech-icon">🫧</span>
+                            <span class="tech-name">Bubble Tea</span>
+                            <span class="tech-description">Elegant TUI framework</span>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-icon">💄</span>
+                            <span class="tech-name">Lip Gloss</span>
+                            <span class="tech-description">Beautiful styling</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tech-category">
+                    <h3 class="category-title">AI Integration</h3>
+                    <div class="tech-items">
+                        <div class="tech-item">
+                            <span class="tech-icon">🤖</span>
+                            <span class="tech-name">OpenAI GPT-4</span>
+                            <span class="tech-description">Advanced reasoning</span>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-icon">🧠</span>
+                            <span class="tech-name">Claude Sonnet</span>
+                            <span class="tech-description">Code-specialized AI</span>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-icon">🔌</span>
+                            <span class="tech-name">Ollama</span>
+                            <span class="tech-description">Local LLM support</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tech-category">
+                    <h3 class="category-title">Infrastructure</h3>
+                    <div class="tech-items">
+                        <div class="tech-item">
+                            <span class="tech-icon">🐳</span>
+                            <span class="tech-name">Docker</span>
+                            <span class="tech-description">Containerization</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tech-category">
+                    <h3 class="category-title">Configuration</h3>
+                    <div class="tech-items">
+                        <div class="tech-item">
+                            <span class="tech-icon">⚙️</span>
+                            <span class="tech-name">Viper</span>
+                            <span class="tech-description">Configuration management</span>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-icon">📄</span>
+                            <span class="tech-name">YAML</span>
+                            <span class="tech-description">Structured config files</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tech-category">
+                    <h3 class="category-title">Monitoring</h3>
+                    <div class="tech-items">
+                        <div class="tech-item">
+                            <span class="tech-icon">📊</span>
+                            <span class="tech-name">Logging</span>
+                            <span class="tech-description">Comprehensive audit logs</span>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-icon">🔒</span>
+                            <span class="tech-name">Security</span>
+                            <span class="tech-description">Sandboxed execution</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="architecture-diagram">
+                <div class="diagram-container">
+                    <div class="layer" data-layer="ui">
+                        <span class="layer-title">User Interface</span>
+                        <span class="layer-tech">Bubble Tea + Lip Gloss</span>
+                    </div>
+                    <div class="layer" data-layer="core">
+                        <span class="layer-title">Smart LLM Engine</span>
+                        <span class="layer-tech">Provider Management</span>
+                    </div>
+                    <div class="layer" data-layer="execution">
+                        <span class="layer-title">Execution Engine</span>
+                        <span class="layer-tech">Safe Command Runner</span>
+                    </div>
+                    <div class="layer" data-layer="config">
+                        <span class="layer-title">Configuration</span>
+                        <span class="layer-tech">Security & Allowlists</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Get Started Section -->
+    <section id="get-started" class="get-started">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Ready to Get Started?</h2>
+                <p class="section-description">
+                    Join developers who are already coding smarter with DizziGo
+                </p>
+            </div>
+            
+            <div class="installation-guide">
+                <div class="install-options">
+                    <div class="install-option active" data-os="linux">
+                        <span class="os-icon">🐧</span>
+                        <span class="os-name">Linux</span>
+                    </div>
+                    <div class="install-option" data-os="macos">
+                        <span class="os-icon">🍎</span>
+                        <span class="os-name">macOS</span>
+                    </div>
+                    <div class="install-option" data-os="windows">
+                        <span class="os-icon">🪟</span>
+                        <span class="os-name">Windows</span>
+                    </div>
+                </div>
+                
+                <div class="install-commands">
+                    <div class="command-block active" data-for="linux">
+                        <div class="command-header">
+                            <span class="command-title">Quick Install (Linux)</span>
+                            <button class="copy-btn" data-copy="curl -fsSL https://get.dizzigo.dev | sh">
+                                📋 Copy
+                            </button>
+                        </div>
+                        <pre class="command-code"><code>curl -fsSL https://get.dizzigo.dev | sh</code></pre>
+                    </div>
+                    
+                    <div class="command-block" data-for="macos">
+                        <div class="command-header">
+                            <span class="command-title">Quick Install (macOS)</span>
+                            <button class="copy-btn" data-copy="brew install dizzigo">
+                                📋 Copy
+                            </button>
+                        </div>
+                        <pre class="command-code"><code>brew install dizzigo</code></pre>
+                    </div>
+                    
+                    <div class="command-block" data-for="windows">
+                        <div class="command-header">
+                            <span class="command-title">Quick Install (Windows)</span>
+                            <button class="copy-btn" data-copy="winget install dizzigo">
+                                📋 Copy
+                            </button>
+                        </div>
+                        <pre class="command-code"><code>winget install dizzigo</code></pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quick-start">
+                <div class="quick-start-header">
+                    <h3>Quick Start Guide</h3>
+                </div>
+                <div class="quick-start-steps">
+                    <div class="quick-step">
+                        <span class="step-number">1</span>
+                        <span class="step-text">Install DizziGo using the command above</span>
+                    </div>
+                    <div class="quick-step">
+                        <span class="step-number">2</span>
+                        <span class="step-text">Run <code>dizzigo init</code> in your project directory</span>
+                    </div>
+                    <div class="quick-step">
+                        <span class="step-number">3</span>
+                        <span class="step-text">Set your API key: <code>dizzigo config set api_key YOUR_KEY</code></span>
+                    </div>
+                    <div class="quick-step">
+                        <span class="step-number">4</span>
+                        <span class="step-text">Start coding: <code>dizzigo</code></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cta-buttons">
+                <a href="https://github.com/dizzigo/dizzigo" class="btn btn-primary">
+                    <span class="btn-text">View on GitHub</span>
+                    <span class="btn-icon">⭐</span>
+                </a>
+                <a href="#documentation" class="btn btn-secondary">
+                    <span class="btn-text">Read Documentation</span>
+                    <span class="btn-icon">📚</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <span class="terminal-prompt">$</span>
+                        <span class="logo-text">DizziGo</span>
+                    </div>
+                    <p class="footer-description">
+                        Your AI-powered terminal companion for smarter coding
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="#documentation">Documentation</a></li>
+                        <li><a href="#api">API Reference</a></li>
+                        <li><a href="#examples">Examples</a></li>
+                        <li><a href="#community">Community</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#help">Help Center</a></li>
+                        <li><a href="#issues">Report Issues</a></li>
+                        <li><a href="#feature-requests">Feature Requests</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">Connect</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://github.com/dizzigo">GitHub</a></li>
+                        <li><a href="https://twitter.com/dizzigo">Twitter</a></li>
+                        <li><a href="https://discord.gg/dizzigo">Discord</a></li>
+                        <li><a href="https://linkedin.com/company/dizzigo">LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    <span>&copy; 2025 DizziGo. Made with ❤️ for developers.</span>
+                </div>
+                <div class="footer-terminal">
+                    <span class="prompt">dizzi@terminal:~$</span>
+                    <span class="cursor">|</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/script.js"></script>
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "DizziGo",
+        "description": "Your AI-Powered Terminal Companion - A CLI-based, chat-powered AI assistant that acts like a senior software engineer with complete context of your local project.",
+        "url": "https://dizzigo.dev",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": ["Windows", "macOS", "Linux"],
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "DizziGo Team",
+            "url": "https://dizzigo.dev"
+        },
+        "screenshot": "https://dizzigo.dev/assets/screenshots/desktop-home.png",
+        "featureList": [
+            "AI Chat Interface",
+            "Filesystem Context Awareness",
+            "Safe Command Execution",
+            "Intelligent Debugging",
+            "Security & Permissions",
+            "Smart LLM Switching"
+        ]
+    }
+    </script>
+</body>
+</html>

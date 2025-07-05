@@ -1,0 +1,141 @@
+{
+  "name": "dizzigo-website",
+  "version": "1.0.0",
+  "description": "Modern, interactive website for DizziGo - Your AI-Powered Terminal Companion",
+  "homepage": "https://dizzigo.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dizzigo/website.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dizzigo/website/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "DizziGo Team",
+    "email": "team@dizzigo.dev",
+    "url": "https://dizzigo.dev"
+  },
+  "contributors": [
+    {
+      "name": "Rabin Poudel",
+      "email": "rabin@dizzigo.dev"
+    }
+  ],
+  "keywords": [
+    "dizzigo",
+    "ai",
+    "terminal",
+    "cli",
+    "assistant",
+    "developer-tools",
+    "website",
+    "three.js",
+    "gsap",
+    "pwa"
+  ],
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve . -l 3000",
+    "dev": "npx serve . -l 3000 --cors",
+    "build": "echo 'No build process needed for static site'",
+    "preview": "npx serve . -l 3000",
+    "test": "echo 'No tests configured yet'",
+    "lint": "npx eslint script.js",
+    "lint:fix": "npx eslint script.js --fix",
+    "format": "npx prettier --write *.html *.css *.js *.json *.md",
+    "validate": "npx html-validate index.html",
+    "lighthouse": "npx lighthouse http://localhost:3000 --output html --output-path ./lighthouse-report.html",
+    "deploy:netlify": "npx netlify deploy --prod --dir .",
+    "deploy:vercel": "npx vercel --prod",
+    "optimize:images": "npx imagemin assets/images/* --out-dir=assets/images/optimized",
+    "generate:icons": "npx pwa-asset-generator assets/icons/logo.svg assets/icons/",
+    "check:links": "npx broken-link-checker http://localhost:3000",
+    "analyze:bundle": "npx bundlesize",
+    "audit": "npm audit && npx lighthouse http://localhost:3000 --quiet --chrome-flags='--headless'",
+    "clean": "rm -rf node_modules package-lock.json && npm install",
+    "size": "npx size-limit",
+    "compress": "npx gzip-size-cli *.css *.js"
+  },
+  "devDependencies": {
+    "serve": "^14.2.1",
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5",
+    "html-validate": "^8.9.1",
+    "lighthouse": "^11.4.0",
+    "imagemin-cli": "^7.0.0",
+    "pwa-asset-generator": "^6.3.1",
+    "broken-link-checker": "^0.7.8",
+    "bundlesize": "^0.18.1",
+    "size-limit": "^11.0.2",
+    "gzip-size-cli": "^5.1.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie <= 11"
+  ],
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "bundlesize": [
+    {
+      "path": "style.css",
+      "maxSize": "50 kB"
+    },
+    {
+      "path": "script.js",
+      "maxSize": "100 kB"
+    }
+  ],
+  "size-limit": [
+    {
+      "path": "style.css",
+      "limit": "50 KB"
+    },
+    {
+      "path": "script.js",
+      "limit": "100 KB"
+    }
+  ],
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "es2021": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+      "ecmaVersion": 12,
+      "sourceType": "module"
+    },
+    "globals": {
+      "THREE": "readonly",
+      "gsap": "readonly",
+      "ScrollTrigger": "readonly"
+    },
+    "rules": {
+      "no-unused-vars": "warn",
+      "no-console": "off",
+      "prefer-const": "error",
+      "no-var": "error"
+    }
+  },
+  "prettier": {
+    "semi": true,
+    "trailingComma": "es5",
+    "singleQuote": true,
+    "printWidth": 80,
+    "tabWidth": 4,
+    "useTabs": false
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/dizzigo"
+  },
+  "config": {
+    "port": 3000,
+    "host": "localhost"
+  }
+}

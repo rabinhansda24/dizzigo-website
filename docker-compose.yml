@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  dizzigo-website:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dizzigo-website
+    ports:
+      - "3000:8080"  # Map host port 3000 to container port 8080
+    environment:
+      - NGINX_HOST=localhost
+      - NGINX_PORT=8080
+    volumes:
+      # Optional: Mount logs for debugging
+      - ./logs:/var/log/nginx
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - dizzigo-network
+
+  # Optional: Add a reverse proxy for production
+  reverse-proxy:
+    image: nginx:alpine
+    container_name: dizzigo-reverse-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./config/nginx-proxy.conf:/etc/nginx/nginx.conf:ro
+      # Mount SSL certificates if needed
+      # - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - dizzigo-website
+    restart: unless-stopped
+    networks:
+      - dizzigo-network
+    profiles:
+      - production  # Only start in production profile
+
+networks:
+  dizzigo-network:
+    driver: bridge
+
+volumes:
+  nginx-logs:
+    driver: local
