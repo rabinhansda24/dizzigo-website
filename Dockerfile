@@ -15,18 +15,18 @@ COPY *.json /usr/share/nginx/html/
 COPY *.xml /usr/share/nginx/html/
 COPY *.txt /usr/share/nginx/html/
 COPY *.svg /usr/share/nginx/html/
-
-# Copy assets directory safely (now has .gitkeep files)
 COPY assets /usr/share/nginx/html/assets
 
 # Copy custom nginx configuration
 COPY config/nginx.conf /etc/nginx/nginx.conf
 COPY config/default.conf /etc/nginx/conf.d/default.conf
 
-# Set proper permissions for website files
-RUN chown -R nginx:nginx /usr/share/nginx/html
+# Fix permissions for web files and required temp directories
+RUN chown -R nginx:nginx /usr/share/nginx/html && \
+    mkdir -p /var/cache/nginx/client_temp && \
+    chown -R nginx:nginx /var/cache/nginx
 
-# Switch to non-root user
+# Switch to nginx user
 USER nginx
 
 # Expose port
